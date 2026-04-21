@@ -60,9 +60,11 @@ if (!$post) {
                     <?php endif; ?>
                     <?php if ($post["post_type"] === "job" && !empty($post["job_link"])): ?>
                         <p class="mb-3">
-                            <a href="<?= e($post["job_link"]) ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                                Apply For This Job
-                            </a>
+                            <?php if (is_logged_in()): ?>
+                                <a href="<?= e($post["job_link"]) ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Apply For This Job</a>
+                            <?php else: ?>
+                                <a href="login.php?next=<?= urlencode((string) $post["job_link"]) ?>" class="btn btn-primary">Apply For This Job</a>
+                            <?php endif; ?>
                         </p>
                     <?php endif; ?>
                     <?php if ($post["post_type"] === "course" && !empty($post["video_file"]) && file_exists(__DIR__ . "/uploads/" . $post["video_file"])): ?>
@@ -78,7 +80,11 @@ if (!$post) {
                         <p class="fw-semibold">Price: $<?= e(number_format((float) $post["price"], 2)) ?></p>
                     <?php endif; ?>
                     <?php if ($post["post_type"] !== "job"): ?>
-                        <a href="payment.php?post_id=<?= (int) $post["id"] ?>" class="btn btn-success">Buy Now</a>
+                        <?php if (is_logged_in()): ?>
+                            <a href="payment.php?post_id=<?= (int) $post["id"] ?>" class="btn btn-success">Buy Now</a>
+                        <?php else: ?>
+                            <a href="login.php?next=<?= urlencode('payment.php?post_id=' . (int) $post['id']) ?>" class="btn btn-success">Buy Now</a>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>

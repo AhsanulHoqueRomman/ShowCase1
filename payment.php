@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if ($paymentError === null) {
-        $paymentSuccess = "Demo payment submitted successfully. Transaction ID: SC-" . strtoupper(substr(md5((string) microtime(true)), 0, 10));
+        $paymentSuccess = "Payment successful";
     }
 }
 ?>
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="col-lg-9">
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body p-4">
-                    <h4 class="mb-3">Payment Checkout (Demo)</h4>
+                    <h4 class="mb-3">Payment Checkout </h4>
                     <p class="mb-1"><strong>Post:</strong> <?= e($post["title"]) ?></p>
                     <p class="mb-1"><strong>By:</strong> <?= e($post["author_name"]) ?></p>
                     <p class="mb-0"><strong>Amount:</strong> $<?= e(number_format((float) ($post["price"] ?? 0), 2)) ?></p>
@@ -179,9 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             </div>
                         </div>
 
-                        <div class="alert alert-warning small">
-                            Demo payment page only. No real payment gateway is connected yet.
-                        </div>
+                        
 
                         <button class="btn btn-success">Confirm Payment</button>
                     </form>

@@ -215,9 +215,17 @@ if ($eventsStmt) {
                             <div class="d-flex gap-2">
                                 <a href="post.php?id=<?= (int) $row["id"] ?>" class="btn btn-outline-primary btn-sm">View Details</a>
                                 <?php if ($row["post_type"] === "job" && !empty($row["job_link"])): ?>
-                                    <a href="<?= e($row["job_link"]) ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Apply</a>
+                                    <?php if (is_logged_in()): ?>
+                                        <a href="<?= e($row["job_link"]) ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Apply</a>
+                                    <?php else: ?>
+                                        <a href="login.php?next=<?= urlencode((string) $row["job_link"]) ?>" class="btn btn-primary btn-sm">Apply</a>
+                                    <?php endif; ?>
                                 <?php else: ?>
-                                    <a href="payment.php?post_id=<?= (int) $row["id"] ?>" class="btn btn-success btn-sm">Buy Now</a>
+                                    <?php if (is_logged_in()): ?>
+                                        <a href="payment.php?post_id=<?= (int) $row["id"] ?>" class="btn btn-success btn-sm">Buy Now</a>
+                                    <?php else: ?>
+                                        <a href="login.php?next=<?= urlencode("payment.php?post_id=" . (int) $row["id"]) ?>" class="btn btn-success btn-sm">Buy Now</a>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </div>
                         </div>

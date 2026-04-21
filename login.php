@@ -25,6 +25,7 @@ if (is_logged_in()) {
                         <div class="alert alert-danger"><?= e($error) ?></div>
                     <?php endif; ?>
                     <form action="actions/login_action.php" method="POST">
+                        <input type="hidden" name="next" value="<?= e($_GET['next'] ?? '') ?>">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input name="email" type="email" required class="form-control">
